@@ -1,0 +1,17 @@
+= Full Stack Security Training Application
+
+This repository contains a full-stack application with a Go based back-end and a React front-end.
+
+There are at least 15 vulnerabilities in this application. How many can you find?
+
+Included in this repository are:
+
+* The backend source code
+* The frontend source code
+* The helm chart to deploy the app
+* The terraform to create the app infrastructure
+
+[NOTE]
+--
+This application is a skeleton and has not been tested end to end, we are just providing reasonable skeletons to help identify security issues.
+--

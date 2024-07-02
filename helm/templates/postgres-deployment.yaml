@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "todo-app.fullname" . }}-postgres
+  labels:
+    app: {{ template "todo-app.fullname" . }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ template "todo-app.fullname" . }}
+      tier: postgres
+  template:
+    metadata:
+      labels:
+        app: {{ template "todo-app.fullname" . }}
+        tier: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: {{ .Values.postgresql.image }}
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "todo-app.fullname" . }}-postgres-secret
+                  key: username
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "todo-app.fullname" . }}-postgres-secret
+                  key: password
+            - name: POSTGRES_DB
+              value: "tododb"
+          resources:
+            {{- toYaml .Values.postgresql.resources | nindent 12 }}

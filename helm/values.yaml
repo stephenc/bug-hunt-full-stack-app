@@ -1,0 +1,44 @@
+replicaCount: 1
+
+image:
+  repository: myrepository/todo-app
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+
+resources: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+postgresql:
+  image: "postgres:13"
+  servicePort: 5432
+  resources: {}
+
+frontend:
+  image:
+    repository: myrepository/todo-app-frontend
+    pullPolicy: IfNotPresent
+    tag: "latest"
+
+  service:
+    type: ClusterIP
+    port: 80
